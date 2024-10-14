@@ -92,4 +92,19 @@ public class Reservation {
         this.numberOfPassengers = numberOfPassengers;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Reservation that)) return false;
+        return getNumberOfPassengers() == that.getNumberOfPassengers() && Objects.equals(getReservationKey(),
+            that.getReservationKey()) && Objects.equals(getCustomer(),
+            that.getCustomer()) && Objects.equals(getFlight(), that.getFlight()) && Objects.equals(
+            getReservationDate(), that.getReservationDate());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getReservationKey(), getCustomer(), getFlight(), getReservationDate(),
+            getNumberOfPassengers());
+    }
 }

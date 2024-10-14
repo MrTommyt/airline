@@ -1,46 +1,33 @@
-package com.example.airline.models;
+package com.example.airline.dto;
 
 import jakarta.persistence.*;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Duration;
 import java.util.Objects;
 
-@Entity 
-@Table(name = "flights")
-public class Flight {
+public class FlightDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_flight")
     private Long idFlight;
-
-    @ManyToOne
-    @JoinColumn(name = "airline", referencedColumnName = "id_airline")
-    private Airline airline;
-
-    @ManyToOne
-    @JoinColumn(name = "origin_id_airport", referencedColumnName = "id_airport")
-    private Airport origin;
-
-    @ManyToOne
-    @JoinColumn(name = "destination_id_airport", referencedColumnName = "id_airport")
-    private Airport destination;
-
-    @Column(name = "departure_date")
+    private AirlineDTO airline;
+    private AirportDTO origin;
+    private AirportDTO destination;
     private LocalDate departureDate;
-
-    @Column(name = "departure_time")
     private LocalTime departureTime;
-
-    @Column(name = "duration")
     private Duration duration;
-
-    @Column(name = "capacity")
     private int capacity;
 
-    // GETTERS AND SETTERS
+    public FlightDTO(Long idFlight, AirlineDTO airline, AirportDTO origin, AirportDTO destination, LocalDate departureDate, LocalTime departureTime, Duration duration, int capacity) {
+        this.idFlight = idFlight;
+        this.airline = airline;
+        this.origin = origin;
+        this.destination = destination;
+        this.departureDate = departureDate;
+        this.departureTime = departureTime;
+        this.duration = duration;
+        this.capacity = capacity;
+    }
 
     public Long getIdFlight() {
         return idFlight;
@@ -50,27 +37,27 @@ public class Flight {
         this.idFlight = idFlight;
     }
 
-    public Airline getAirline() {
+    public AirlineDTO getAirline() {
         return airline;
     }
 
-    public void setAirline(Airline airline) {
+    public void setAirline(AirlineDTO airline) {
         this.airline = airline;
     }
 
-    public Airport getOrigin() {
+    public AirportDTO getOrigin() {
         return origin;
     }
 
-    public void setOrigin(Airport origin) {
+    public void setOrigin(AirportDTO origin) {
         this.origin = origin;
     }
 
-    public Airport getDestination() {
+    public AirportDTO getDestination() {
         return destination;
     }
 
-    public void setDestination(Airport destination) {
+    public void setDestination(AirportDTO destination) {
         this.destination = destination;
     }
 
@@ -108,15 +95,15 @@ public class Flight {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
-        if (!(o instanceof Flight flight)) return false;
-        return getCapacity() == flight.getCapacity() && Objects.equals(getIdFlight(),
-            flight.getIdFlight()) && Objects.equals(getAirline(),
-            flight.getAirline()) && Objects.equals(getOrigin(), flight.getOrigin()) && Objects.equals(
-            getDestination(), flight.getDestination()) && Objects.equals(getDepartureDate(),
-            flight.getDepartureDate()) && Objects.equals(getDepartureTime(),
-            flight.getDepartureTime()) && Objects.equals(getDuration(), flight.getDuration());
+        if (!(o instanceof FlightDTO flightDTO)) return false;
+        return getCapacity() == flightDTO.getCapacity() && Objects.equals(getIdFlight(),
+            flightDTO.getIdFlight()) && Objects.equals(getAirline(),
+            flightDTO.getAirline()) && Objects.equals(getOrigin(),
+            flightDTO.getOrigin()) && Objects.equals(getDestination(),
+            flightDTO.getDestination()) && Objects.equals(getDepartureDate(),
+            flightDTO.getDepartureDate()) && Objects.equals(getDepartureTime(),
+            flightDTO.getDepartureTime()) && Objects.equals(getDuration(), flightDTO.getDuration());
     }
 
     @Override

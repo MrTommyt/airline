@@ -1,40 +1,27 @@
-package com.example.airline.models;
+package com.example.airline.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Table;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name = "customers")
-public class Customer implements Serializable {
+public class CustomerDTO implements Serializable {
 
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_customer")
     private Long idCustomer;
-
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "last_name")
     private String lastName;
-
-    @Column(name = "address")
     private String address;
-
-    @Column(name = "phone")
     private String phone;
-
-    @Column(name = "email")
     private String email;
 
-    // GETTERS AND SETTERS
+    public CustomerDTO(Long idCustomer, String name, String lastName, String address, String phone, String email) {
+        this.idCustomer = idCustomer;
+        this.name = name;
+        this.lastName = lastName;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+    }
 
     public Long getIdCustomer() {
         return idCustomer;
@@ -87,12 +74,11 @@ public class Customer implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Customer customer)) return false;
-        return Objects.equals(getIdCustomer(), customer.getIdCustomer()) && Objects.equals(getName(),
-            customer.getName()) && Objects.equals(getLastName(),
-            customer.getLastName()) && Objects.equals(getAddress(),
-            customer.getAddress()) && Objects.equals(getPhone(), customer.getPhone()) && Objects.equals(
-            getEmail(), customer.getEmail());
+        if (!(o instanceof CustomerDTO that)) return false;
+        return Objects.equals(getIdCustomer(), that.getIdCustomer()) && Objects.equals(getName(),
+            that.getName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(
+            getAddress(), that.getAddress()) && Objects.equals(getPhone(),
+            that.getPhone()) && Objects.equals(getEmail(), that.getEmail());
     }
 
     @Override

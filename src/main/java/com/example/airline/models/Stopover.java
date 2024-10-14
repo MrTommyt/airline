@@ -79,4 +79,18 @@ public class Stopover {
     public void setStopoverTime(Duration stopoverTime) {
         this.stopoverTime = stopoverTime;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Stopover stopover)) return false;
+        return Objects.equals(getStopoverKey(), stopover.getStopoverKey()) && Objects.equals(
+            getFlight(), stopover.getFlight()) && Objects.equals(getAirport(),
+            stopover.getAirport()) && Objects.equals(getStopoverTime(), stopover.getStopoverTime());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getStopoverKey(), getFlight(), getAirport(), getStopoverTime());
+    }
 }

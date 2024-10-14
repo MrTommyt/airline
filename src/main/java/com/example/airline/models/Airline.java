@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "airlines")
 public class Airline {
@@ -64,5 +66,18 @@ public class Airline {
     // Código de aerolínea
     // País de origen
 
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Airline airline)) return false;
+        return Objects.equals(getIdAirline(), airline.getIdAirline()) && Objects.equals(getName(),
+            airline.getName()) && Objects.equals(getAirlineCode(),
+            airline.getAirlineCode()) && Objects.equals(getCountryOfOrigin(), airline.getCountryOfOrigin());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIdAirline(), getName(), getAirlineCode(), getCountryOfOrigin());
+    }
 }

@@ -1,34 +1,21 @@
-package com.example.airline.models;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+package com.example.airline.dto;
 
 import java.util.Objects;
 
-@Entity
-@Table(name = "airports")
-public class Airport {
+public class AirportDTO {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_airport")
     private Long idAirport;
-
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "city")
     private String city;
-
-    @Column(name = "country")
     private String country;
 
-    // GETTERS AND SETTERS
-    
+    public AirportDTO(Long idAirport, String name, String city, String country) {
+        this.idAirport = idAirport;
+        this.name = name;
+        this.city = city;
+        this.country = country;
+    }
+
     public Long getIdAirport() {
         return idAirport;
     }
@@ -61,19 +48,13 @@ public class Airport {
         this.country = country;
     }
 
-    // ID_Aeropuerto (Clave Primaria)
-    // Nombre
-    // Ciudad
-    // País
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Airport airport)) return false;
-        return Objects.equals(getIdAirport(), airport.getIdAirport()) && Objects.equals(getName(),
-            airport.getName()) && Objects.equals(getCity(), airport.getCity()) && Objects.equals(
-            getCountry(), airport.getCountry());
+        if (!(o instanceof AirportDTO that)) return false;
+        return Objects.equals(getIdAirport(), that.getIdAirport()) && Objects.equals(getName(),
+            that.getName()) && Objects.equals(getCity(), that.getCity()) && Objects.equals(getCountry(),
+            that.getCountry());
     }
 
     @Override
