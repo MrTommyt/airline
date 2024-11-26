@@ -17,6 +17,7 @@ public interface AirportMapper {
         @Mapping(target = "name", source = "name"),
         @Mapping(target = "city", source = "city"),
         @Mapping(target = "country", source = "country"),
+        @Mapping(target = "iataCode", source = "iataCode"),
     })
     AirportDTO toAirportDto(Airport airport);
 

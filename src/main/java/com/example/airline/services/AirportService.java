@@ -11,6 +11,7 @@ import com.example.airline.dto.AirportDTO;
 public interface AirportService {
     List<AirportDTO> findAll();
     Optional<AirportDTO> findAirportById(Long id);
+    Optional<AirportDTO> findAirportByCode(String code);
     List<AirportDTO> findAirportByName(String name);
     AirportDTO createAirport(AirportDTO airport);
     Optional<AirportDTO> updateAirport(Long id, AirportDTO newAirport);

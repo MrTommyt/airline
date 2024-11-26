@@ -30,6 +30,11 @@ public class AirportController {
         return ResponseEntity.ok(airportService.findAirportByName(name));
     }
 
+    @GetMapping("/find/code/{code}")
+    public ResponseEntity<AirportDTO> findAirportByCode(@PathVariable String code) {
+        return airportService.findAirportByCode(code).map(ResponseEntity::ok).orElse(null);
+    }
+
     @GetMapping("/find/id/{id}")
     public ResponseEntity<AirportDTO> findAirportById(@PathVariable Long id) {
         return ResponseEntity.ok(airportService.findAirportById(id).orElse(null));

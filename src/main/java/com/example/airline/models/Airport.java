@@ -27,6 +27,9 @@ public class Airport {
     @Column(name = "country")
     private String country;
 
+    @Column(name = "iataCode")
+    private String iataCode;
+
     // GETTERS AND SETTERS
     
     public Long getIdAirport() {
@@ -79,5 +82,13 @@ public class Airport {
     @Override
     public int hashCode() {
         return Objects.hash(getIdAirport(), getName(), getCity(), getCountry());
+    }
+
+    public String getIataCode() {
+        return iataCode;
+    }
+
+    public void setIataCode(String iataCode) {
+        this.iataCode = iataCode;
     }
 }

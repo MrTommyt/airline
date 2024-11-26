@@ -8,12 +8,14 @@ public class AirportDTO {
     private String name;
     private String city;
     private String country;
+    private String iataCode;
 
-    public AirportDTO(Long idAirport, String name, String city, String country) {
+    public AirportDTO(Long idAirport, String name, String city, String country, String iataCode) {
         this.idAirport = idAirport;
         this.name = name;
         this.city = city;
         this.country = country;
+        this.iataCode = iataCode;
     }
 
     public Long getIdAirport() {
@@ -60,5 +62,13 @@ public class AirportDTO {
     @Override
     public int hashCode() {
         return Objects.hash(getIdAirport(), getName(), getCity(), getCountry());
+    }
+
+    public String getIataCode() {
+        return iataCode;
+    }
+
+    public void setIataCode(String iataCode) {
+        this.iataCode = iataCode;
     }
 }

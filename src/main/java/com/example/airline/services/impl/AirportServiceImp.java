@@ -31,6 +31,11 @@ public class AirportServiceImp implements AirportService{
     }
 
     @Override
+    public Optional<AirportDTO> findAirportByCode(String id) {
+        return airportRepository.findByIataCode(id).map(airportMapper::toAirportDto);
+    }
+
+    @Override
     public List<AirportDTO> findAirportByName(String name) {
        return airportRepository.findAirportByName(name).stream().map(airportMapper::toAirportDto).toList();
     }
