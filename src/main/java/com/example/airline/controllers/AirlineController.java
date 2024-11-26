@@ -16,10 +16,12 @@ public class AirlineController {
     @Autowired
     public AirlineController(AirlineService airlineService) {
         this.airlineService = airlineService;
+        System.out.println("instancing AirlineController...\n\n\n");
     }
 
     @GetMapping
     public ResponseEntity<List<Airline>> findAll() {
+        System.out.println("Finding all airlines");
         return ResponseEntity.ok(airlineService.findAll());
     }
 
@@ -35,7 +37,7 @@ public class AirlineController {
 
 
     @PostMapping()
-    public ResponseEntity<Airline> createClient(@RequestBody Airline airline) {
+    public ResponseEntity<Airline> createAirline(@RequestBody Airline airline) {
         return ResponseEntity.ok(airlineService.createAirline(airline));
     }
 

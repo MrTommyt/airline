@@ -1,14 +1,11 @@
 package com.example.airline.dto;
 
-import jakarta.persistence.*;
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 
 public class FlightDTO {
-
     private Long idFlight;
     private AirlineDTO airline;
     private AirportDTO origin;
@@ -111,4 +108,5 @@ public class FlightDTO {
         return Objects.hash(getIdFlight(), getAirline(), getOrigin(), getDestination(), getDepartureDate(),
             getDepartureTime(), getDuration(), getCapacity());
     }
+
 }
