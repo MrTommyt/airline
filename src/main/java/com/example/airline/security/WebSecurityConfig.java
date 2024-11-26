@@ -1,5 +1,6 @@
 package com.example.airline.security;
 
+import com.example.airline.models.RoleType;
 import com.example.airline.security.jwt.AuthTokenFilter;
 import com.example.airline.security.jwt.exception.AuthEntryPointJwt;
 import org.springframework.context.annotation.Bean;
@@ -66,10 +67,9 @@ public class WebSecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(request -> request
-                .requestMatchers("/", "api/v1", "/auth/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
+                .requestMatchers("/", "api/v1", "/auth/**").permitAll()
+                .requestMatchers("/api/v1/admin").hasRole(RoleType.ROLE_ADMIN.name())
+                .anyRequest().authenticated()
             );
 
         http.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);

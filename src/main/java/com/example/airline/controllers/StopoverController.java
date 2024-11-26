@@ -1,6 +1,7 @@
 package com.example.airline.controllers;
 
 import com.example.airline.dto.StopoverDTO;
+import com.example.airline.models.Stopover;
 import com.example.airline.services.StopoverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +15,10 @@ public class StopoverController {
     @Autowired
     public StopoverController(StopoverService stopoverService) {this.stopoverService = stopoverService;}
 
-    @GetMapping("/find/id/{id}")
-    public ResponseEntity<StopoverDTO> findStopoverById(@PathVariable Long id) {
-        return ResponseEntity.ok(stopoverService.findStopoverById(id).orElse(null));
+    @GetMapping("/find/flight/{flightId}/airport/{airportId}")
+    public ResponseEntity<StopoverDTO> findStopoverById(@PathVariable Long flightId, @PathVariable Long airportId) {
+        return ResponseEntity.ok(stopoverService.findStopoverById(new Stopover.StopoverKey(flightId, airportId))
+            .orElse(null));
     }
 
     @PostMapping
@@ -24,16 +26,16 @@ public class StopoverController {
         return ResponseEntity.ok(stopoverService.createStopover(stopover));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<StopoverDTO> updateStopover(@PathVariable Long id, @RequestBody StopoverDTO stopover) {
-        return stopoverService.updateStopover(id, stopover)
+    @PutMapping("/flight/{flightId}/airport/{airportId}")
+    public ResponseEntity<StopoverDTO> updateStopover(@PathVariable Long flightId, @PathVariable Long airportId, @RequestBody StopoverDTO stopover) {
+        return stopoverService.updateStopover(new Stopover.StopoverKey(flightId, airportId), stopover)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteStopover(@PathVariable Long id) {
-        stopoverService.deleteStopover(id);
+    @DeleteMapping("/flight/{flightId}/airport/{airportId}")
+    public ResponseEntity<Void> deleteStopover(@PathVariable Long flightId, @PathVariable Long airportId) {
+        stopoverService.deleteStopover(new Stopover.StopoverKey(flightId, airportId));
         return ResponseEntity.noContent().build();
     }
 }

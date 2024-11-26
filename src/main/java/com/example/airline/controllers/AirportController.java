@@ -29,7 +29,7 @@ public class AirportController {
         return ResponseEntity.ok(airportService.findAirportByName(name));
     }
 
-    @GetMapping("/find/name/{id}")
+    @GetMapping("/find/id/{id}")
     public ResponseEntity<AirportDTO> findAirportById(@PathVariable Long id) {
         return ResponseEntity.ok(airportService.findAirportById(id).orElse(null));
     }

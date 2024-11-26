@@ -25,12 +25,14 @@ public class ReservationServiceImp implements ReservationService {
 
     @Override
     public List<ReservationDTO> findAll() {
-        return reservationRepository.findAll().stream().map(reservationMapper::toReservationDTO).toList();
+        return reservationRepository.findAll().stream()
+            .map(reservationMapper::toReservationDTO)
+            .toList();
     }
 
-    @Override
-    public Optional<ReservationDTO> findReservationById(Long id) {
-        return reservationRepository.findById(id).map(reservationMapper::toReservationDTO);
+    public Optional<ReservationDTO> findReservationById(Reservation.ReservationKey id) {
+        return reservationRepository.findById(id)
+            .map(reservationMapper::toReservationDTO);
     }
 
     @Override
@@ -39,7 +41,7 @@ public class ReservationServiceImp implements ReservationService {
     }
 
     @Override
-    public Optional<ReservationDTO> updateReservation(Long id, ReservationDTO newReservation) {
+    public Optional<ReservationDTO> updateReservation(Reservation.ReservationKey id, ReservationDTO newReservation) {
        return reservationRepository.findById(id)
        .map(reservationInDB -> {
             reservationInDB.setReservationKey(new Reservation.ReservationKey(
@@ -56,7 +58,7 @@ public class ReservationServiceImp implements ReservationService {
     }
 
     @Override
-    public void deleteReservation(Long id) {
+    public void deleteReservation(Reservation.ReservationKey id) {
        reservationRepository.deleteById(id);
     }
 }

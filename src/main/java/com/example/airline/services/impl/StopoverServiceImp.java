@@ -28,8 +28,7 @@ public class StopoverServiceImp implements StopoverService{
        return stopoverRepository.findAll().stream().map(stopoverMapper::toStopoverDto).toList();
     }
 
-    @Override
-    public Optional<StopoverDTO> findStopoverById(Long id) {
+    public Optional<StopoverDTO> findStopoverById(Stopover.StopoverKey id) {
         return stopoverRepository.findById(id).map(stopoverMapper::toStopoverDto);
     }
 
@@ -39,7 +38,7 @@ public class StopoverServiceImp implements StopoverService{
     }
 
     @Override
-    public Optional<StopoverDTO> updateStopover(Long id, StopoverDTO newStopover) {
+    public Optional<StopoverDTO> updateStopover(Stopover.StopoverKey id, StopoverDTO newStopover) {
         return stopoverRepository.findById(id)
         .map(stopoverInDB -> {
             stopoverInDB.setStopoverKey(new Stopover.StopoverKey(
@@ -55,7 +54,7 @@ public class StopoverServiceImp implements StopoverService{
     }
 
     @Override
-    public void deleteStopover(Long id) {
+    public void deleteStopover(Stopover.StopoverKey id) {
         stopoverRepository.deleteById(id);
     }
     

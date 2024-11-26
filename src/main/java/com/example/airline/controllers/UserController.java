@@ -27,7 +27,7 @@ public class UserController {
         this.authenticationManager = authenticationManager;
     }
 
-    @PostMapping("/sign-in")
+    @PostMapping("/signup")
     public ResponseEntity<UserInfoDto> createUser(@RequestBody UserInfoDto signInRequest) {
         UserInfoDto userInfoDto = userDetailsService.addUser(signInRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(userInfoDto);
@@ -35,17 +35,13 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> authenticateUser(@RequestBody UserInfoDto loginRequest) {
-        System.out.println(loginRequest.username());
-        System.out.println(loginRequest.password());
         try {
             Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password())
             );
 
-            System.out.printf("isAuthenticated: %b%n", authentication.isAuthenticated());
             if (authentication.isAuthenticated()) {
                 String jwt = jwtUtils.generateToken(authentication);
-                System.out.println("jwt: " + jwt);
                 return ResponseEntity.ok(jwt);
             } else {
                 throw new UsernameNotFoundException("Invalid username or password");

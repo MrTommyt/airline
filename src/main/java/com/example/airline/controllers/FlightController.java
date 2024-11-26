@@ -21,7 +21,7 @@ public class FlightController {
     @Autowired
     public FlightController(FlightService flightService) {this.flightService = flightService;}
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<FlightDTO>> findAll() {
         return ResponseEntity.ok(flightService.findAll());
     }
