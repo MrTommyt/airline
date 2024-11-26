@@ -5,14 +5,14 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.example.airline.models.Reservation;
+import com.example.airline.dto.ReservationDTO;
 
 @Service
 
 public interface ReservationService {
-    List<Reservation> findAll();
-    Optional<Reservation> findReservationById(Long id);
-    Reservation createReservation(Reservation reservation);
-    Optional<Reservation> updateReservation(Long id, Reservation newReservation);
+    List<ReservationDTO> findAll();
+    Optional<ReservationDTO> findReservationById(Long id);
+    ReservationDTO createReservation(ReservationDTO reservation);
+    Optional<ReservationDTO> updateReservation(Long id, ReservationDTO newReservation);
     void deleteReservation(Long id);
 }

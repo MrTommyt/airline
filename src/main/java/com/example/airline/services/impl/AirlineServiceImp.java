@@ -1,12 +1,15 @@
 package com.example.airline.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.airline.mapper.AirlineMapper;
+import com.example.airline.models.Airline;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.airline.models.Airline;
+import com.example.airline.dto.AirlineDTO;
 import com.example.airline.repositories.AirlineRepository;
 import com.example.airline.services.AirlineService;
 
@@ -15,37 +18,41 @@ public class AirlineServiceImp implements AirlineService{
 
     @Autowired
     private AirlineRepository airlineRepository;
+    private final AirlineMapper airlineMapper = AirlineMapper.INSTANCE;
 
     @Override
-    public List<Airline> findAll() {
-        return airlineRepository.findAll();
+    public List<AirlineDTO> findAll() {
+        return airlineRepository.findAll().stream().map(airlineMapper::toAirlineDto).toList();
     }
 
     @Override
-    public Optional<Airline> findAirlineById(Long id) {
-        return airlineRepository.findById(id);
+    public Optional<AirlineDTO> findAirlineById(Long id) {
+        return airlineRepository.findById(id).map(airlineMapper::toAirlineDto);
     }
 
     @Override
-    public List<Airline> findAirlineByName(String name) {
-        return airlineRepository.findAirlineByName(name);
+    public List<AirlineDTO> findAirlineByName(String name) {
+        List<AirlineDTO> airlines = new ArrayList<>();
+        airlineRepository.findAirlineByName(name).forEach(airline -> airlines.add(airlineMapper.toAirlineDto(airline)));
+        return airlines;
     }
 
     @Override
-    public Airline createAirline(Airline airline) {
-       return airlineRepository.save(airline);
+    public AirlineDTO createAirline(AirlineDTO airline) {
+        Airline al = airlineMapper.fromAirlineDto(airline);
+        return airlineMapper.toAirlineDto(airlineRepository.save(al));
     }
 
     @Override
-    public Optional<Airline> updateAirline(Long id, Airline newAirline) {
+    public Optional<AirlineDTO> updateAirline(Long id, AirlineDTO newAirline) {
        return airlineRepository.findById(id)
        .map(airlineInDB -> {
             airlineInDB.setIdAirline(newAirline.getIdAirline());
             airlineInDB.setName(newAirline.getName());
             airlineInDB.setAirlineCode(newAirline.getAirlineCode());
-            airlineInDB.setCountryOfOrigin(newAirline.getCountryOfOrigin());
+            airlineInDB.setCountryOfOrigin(newAirline.getCountry());
         
-            return airlineRepository.save(airlineInDB);
+            return airlineMapper.toAirlineDto(airlineRepository.save(airlineInDB));
         });
     }
 

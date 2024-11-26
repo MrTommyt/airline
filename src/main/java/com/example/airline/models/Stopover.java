@@ -17,6 +17,14 @@ public class Stopover {
         @Column(name = "id_airport")
         private Long idAirport;
 
+        public StopoverKey() {
+        }
+
+        public StopoverKey(Long idFlight, Long idAirport) {
+            this.idFlight = idFlight;
+            this.idAirport = idAirport;
+        }
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;

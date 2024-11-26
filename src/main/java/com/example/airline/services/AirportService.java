@@ -5,14 +5,14 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.example.airline.models.Airport;
+import com.example.airline.dto.AirportDTO;
 
 @Service
 public interface AirportService {
-    List<Airport> findAll();
-    Optional<Airport> findAirportById(Long id);
-    List<Airport> findAirportByName(String name);
-    Airport createAirport(Airport airport);
-    Optional<Airport> updateAirport(Long id, Airport newAirport);
+    List<AirportDTO> findAll();
+    Optional<AirportDTO> findAirportById(Long id);
+    List<AirportDTO> findAirportByName(String name);
+    AirportDTO createAirport(AirportDTO airport);
+    Optional<AirportDTO> updateAirport(Long id, AirportDTO newAirport);
     void deleteAirport(Long id);
 }

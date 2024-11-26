@@ -1,6 +1,6 @@
 package com.example.airline.controllers;
 
-import com.example.airline.models.Reservation;
+import com.example.airline.dto.ReservationDTO;
 import com.example.airline.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,24 +19,24 @@ public class ReservationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Reservation>> findAll() {
+    public ResponseEntity<List<ReservationDTO>> findAll() {
         return ResponseEntity.ok(reservationService.findAll());
     }
 
     @GetMapping("/find/id/{id}")
-    public ResponseEntity<Reservation> findReservationById(@PathVariable long id) {
+    public ResponseEntity<ReservationDTO> findReservationById(@PathVariable long id) {
         return reservationService.findReservationById(id)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) {
+    public ResponseEntity<ReservationDTO> createReservation(@RequestBody ReservationDTO reservation) {
         return ResponseEntity.ok(reservationService.createReservation(reservation));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Reservation> updateReservation(@PathVariable long id, @RequestBody Reservation newReservation) {
+    public ResponseEntity<ReservationDTO> updateReservation(@PathVariable long id, @RequestBody ReservationDTO newReservation) {
         return reservationService.updateReservation(id, newReservation)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());

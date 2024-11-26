@@ -18,6 +18,14 @@ public class Reservation {
         @Column(name = "id_flight")
         private Long flight;
 
+        public ReservationKey() {
+        }
+
+        public ReservationKey(Long customer, Long flight) {
+            this.customer = customer;
+            this.flight = flight;
+        }
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;

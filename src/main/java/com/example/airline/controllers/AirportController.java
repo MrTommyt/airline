@@ -1,6 +1,6 @@
 package com.example.airline.controllers;
 
-import com.example.airline.models.Airport;
+import com.example.airline.dto.AirportDTO;
 import com.example.airline.services.AirportService;
 
 import java.util.List;
@@ -20,27 +20,27 @@ public class AirportController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Airport>> findAll() {
+    public ResponseEntity<List<AirportDTO>> findAll() {
         return ResponseEntity.ok(airportService.findAll());
     }
 
     @GetMapping("/find/name/{name}")
-    public ResponseEntity<List<Airport>> findAirportByName(@PathVariable String name) {
+    public ResponseEntity<List<AirportDTO>> findAirportByName(@PathVariable String name) {
         return ResponseEntity.ok(airportService.findAirportByName(name));
     }
 
     @GetMapping("/find/name/{id}")
-    public ResponseEntity<Airport> findAirportById(@PathVariable Long id) {
+    public ResponseEntity<AirportDTO> findAirportById(@PathVariable Long id) {
         return ResponseEntity.ok(airportService.findAirportById(id).orElse(null));
     }
 
     @PostMapping
-    public ResponseEntity<Airport> createAirport(@RequestBody Airport airport) {
+    public ResponseEntity<AirportDTO> createAirport(@RequestBody AirportDTO airport) {
         return ResponseEntity.ok(airportService.createAirport(airport));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Airport> updateAirport(@PathVariable Long id, @RequestBody Airport newAirport) {
+    public ResponseEntity<AirportDTO> updateAirport(@PathVariable Long id, @RequestBody AirportDTO newAirport) {
         return airportService.updateAirport(id, newAirport)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());

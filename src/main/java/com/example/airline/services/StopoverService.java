@@ -5,14 +5,14 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.example.airline.models.Stopover;
+import com.example.airline.dto.StopoverDTO;
 
 @Service
 public interface StopoverService {
-    List<Stopover> findAll();
-    Optional<Stopover> findStopoverById(Long id);
-    Stopover createStopover(Stopover stopover);
-    Optional<Stopover> updateStopover(Long id, Stopover newStopover);
+    List<StopoverDTO> findAll();
+    Optional<StopoverDTO> findStopoverById(Long id);
+    StopoverDTO createStopover(StopoverDTO stopover);
+    Optional<StopoverDTO> updateStopover(Long id, StopoverDTO newStopover);
     void deleteStopover(Long id);
     
 }

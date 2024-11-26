@@ -1,6 +1,6 @@
 package com.example.airline.controllers;
 
-import com.example.airline.models.Customer;
+import com.example.airline.dto.CustomerDTO;
 import com.example.airline.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,27 +19,27 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Customer>> findAll() {
+    public ResponseEntity<List<CustomerDTO>> findAll() {
         return ResponseEntity.ok(customerService.findAll());
     }
 
     @GetMapping("/find/id/{id}")
-    public ResponseEntity<Customer> findCustomerById(@PathVariable long id) {
+    public ResponseEntity<CustomerDTO> findCustomerById(@PathVariable long id) {
         return ResponseEntity.ok(customerService.findCustomerById(id).orElse(null));
     }
 
     @GetMapping("/find/name/{name}")
-    public ResponseEntity<List<Customer>> findCustomerByName(@PathVariable String name) {
+    public ResponseEntity<List<CustomerDTO>> findCustomerByName(@PathVariable String name) {
         return ResponseEntity.ok(customerService.findCustomerByName(name));
     }
 
     @PostMapping
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<CustomerDTO> createCustomer(@RequestBody CustomerDTO customer) {
         return ResponseEntity.ok(customerService.createCustomer(customer));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable long id, @RequestBody Customer newCustomer) {
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable long id, @RequestBody CustomerDTO newCustomer) {
         return ResponseEntity.ok(customerService.updateCustomer(id, newCustomer).orElse(null));
     }
 

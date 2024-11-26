@@ -5,15 +5,15 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.example.airline.models.Airline;
+import com.example.airline.dto.AirlineDTO;
 
 @Service
 public interface AirlineService {
-    List<Airline> findAll();
-    Optional<Airline> findAirlineById(Long id);
-    List<Airline> findAirlineByName(String name);
-    Airline createAirline(Airline airline);
-    Optional<Airline> updateAirline(Long id, Airline newAirline);
+    List<AirlineDTO> findAll();
+    Optional<AirlineDTO> findAirlineById(Long id);
+    List<AirlineDTO> findAirlineByName(String name);
+    AirlineDTO createAirline(AirlineDTO airline);
+    Optional<AirlineDTO> updateAirline(Long id, AirlineDTO newAirline);
     void deleteAirline(Long id);
     
 }

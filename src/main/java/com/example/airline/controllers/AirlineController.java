@@ -1,6 +1,6 @@
 package com.example.airline.controllers;
 
-import com.example.airline.models.Airline;
+import com.example.airline.dto.AirlineDTO;
 import com.example.airline.services.AirlineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,29 +20,29 @@ public class AirlineController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Airline>> findAll() {
+    public ResponseEntity<List<AirlineDTO>> findAll() {
         System.out.println("Finding all airlines");
         return ResponseEntity.ok(airlineService.findAll());
     }
 
     @GetMapping("/find/name/{name}")
-    public ResponseEntity<List<Airline>> findAirlineByName(@PathVariable String name) {
+    public ResponseEntity<List<AirlineDTO>> findAirlineByName(@PathVariable String name) {
         return ResponseEntity.ok(airlineService.findAirlineByName(name));
     }
 
     @GetMapping("/find/id/{id}")
-    public ResponseEntity<Airline> findAirlineById(@PathVariable Long id) {
+    public ResponseEntity<AirlineDTO> findAirlineById(@PathVariable Long id) {
         return ResponseEntity.ok(airlineService.findAirlineById(id).orElse(null));
     }
 
 
     @PostMapping()
-    public ResponseEntity<Airline> createAirline(@RequestBody Airline airline) {
+    public ResponseEntity<AirlineDTO> createAirline(@RequestBody AirlineDTO airline) {
         return ResponseEntity.ok(airlineService.createAirline(airline));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Airline> updateAirline(@PathVariable Long id, @RequestBody Airline newAirline) {
+    public ResponseEntity<AirlineDTO> updateAirline(@PathVariable Long id, @RequestBody AirlineDTO newAirline) {
         return ResponseEntity.ok(airlineService.updateAirline(id, newAirline).orElse(null));
     }
 
