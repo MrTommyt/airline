@@ -1,7 +1,10 @@
 package com.example.airline.controllers;
 
 import com.example.airline.dto.UserInfoDto;
+import com.example.airline.dto.auth.AuthRequest;
+import com.example.airline.dto.auth.AuthResponse;
 import com.example.airline.security.jwt.JwtUtil;
+import com.example.airline.security.service.UserDetailsImp;
 import com.example.airline.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,14 +37,15 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> authenticateUser(@RequestBody UserInfoDto loginRequest) {
+    public ResponseEntity<AuthResponse> authenticateUser(@RequestBody AuthRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password())
+            new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password())
         );
 
         if (authentication.isAuthenticated()) {
             String jwt = jwtUtils.generateToken(authentication);
-            return ResponseEntity.ok(jwt);
+            UserDetailsImp ud = (UserDetailsImp) authentication.getPrincipal();
+            return ResponseEntity.ok(new AuthResponse(jwt, ud.getId()));
         } else {
             throw new UsernameNotFoundException("Invalid username or password");
         }
