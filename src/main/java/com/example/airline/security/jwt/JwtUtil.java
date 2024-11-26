@@ -1,5 +1,6 @@
 package com.example.airline.security.jwt;
 
+import com.example.airline.security.service.UserDetailsImp;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -8,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -18,7 +18,7 @@ import java.util.Date;
 @SuppressWarnings("deprecation")
 @Component
 public class JwtUtil {
-    private static Logger log = LoggerFactory.getLogger(JwtUtil.class);
+    private static final Logger log = LoggerFactory.getLogger(JwtUtil.class);
 
     @Value("${app.jwt.secret}")
     private String SECRET;
@@ -26,9 +26,9 @@ public class JwtUtil {
     private long EXPIRATION_TIME;
 
     public String generateToken(Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        UserDetailsImp userDetails = (UserDetailsImp) authentication.getPrincipal();
         String token = Jwts.builder()
-            .setSubject(userDetails.getUsername())
+            .setSubject(userDetails.getEmail())
             .setIssuedAt(new Date())
             .setExpiration(new Date(new Date().getTime() + EXPIRATION_TIME))
             .signWith(getSecretKey(), SignatureAlgorithm.HS512)

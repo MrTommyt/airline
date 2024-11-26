@@ -1,4 +1,6 @@
 package com.example.airline.dto.auth;
 
-public record AuthResponse(String token, Long userId) {
+import org.springframework.security.core.userdetails.UserDetails;
+
+public record AuthResponse(String token, UserDetails user) {
 }

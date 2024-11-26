@@ -3,6 +3,7 @@ package com.example.airline.controllers;
 import com.example.airline.dto.UserInfoDto;
 import com.example.airline.dto.auth.AuthRequest;
 import com.example.airline.dto.auth.AuthResponse;
+import com.example.airline.repositories.UserRepository;
 import com.example.airline.security.jwt.JwtUtil;
 import com.example.airline.security.service.UserDetailsImp;
 import com.example.airline.security.service.UserDetailsServiceImpl;
@@ -45,7 +46,7 @@ public class UserController {
         if (authentication.isAuthenticated()) {
             String jwt = jwtUtils.generateToken(authentication);
             UserDetailsImp ud = (UserDetailsImp) authentication.getPrincipal();
-            return ResponseEntity.ok(new AuthResponse(jwt, ud.getId()));
+            return ResponseEntity.ok(new AuthResponse(jwt, ud));
         } else {
             throw new UsernameNotFoundException("Invalid username or password");
         }
