@@ -68,7 +68,7 @@ public class WebSecurityConfig {
             .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(request -> request
                 .requestMatchers("/", "api/v1", "/auth/**").permitAll()
-                .requestMatchers("/api/v1/admin").hasRole(RoleType.ROLE_ADMIN.name())
+//                .requestMatchers("/api/v1/admin").hasRole(RoleType.ROLE_ADMIN.name())
                 .anyRequest().authenticated()
             );
 
@@ -81,7 +81,8 @@ public class WebSecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:5173");
+        config.addAllowedOrigin("http://localhost:8080");
+        config.addAllowedOrigin("http://localhost:3000");
         config.setAllowedHeaders(Arrays.asList(
             HttpHeaders.AUTHORIZATION,
             HttpHeaders.CONTENT_TYPE,
@@ -97,7 +98,7 @@ public class WebSecurityConfig {
             HttpMethod.HEAD.name()
         ));
         config.setMaxAge(3600L);
-        source.registerCorsConfiguration("/", config);
+        source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
 }
