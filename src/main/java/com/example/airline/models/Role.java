@@ -1,9 +1,11 @@
 package com.example.airline.models;
 
 import jakarta.persistence.*;
+import org.springframework.transaction.annotation.Transactional;
 
 @Entity
 @Table(name = "roles")
+@Transactional(readOnly = true)
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

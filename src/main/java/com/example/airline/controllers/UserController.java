@@ -39,7 +39,7 @@ public class UserController {
         System.out.println(loginRequest.password());
         try {
             Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password())
+                new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password())
             );
 
             System.out.printf("isAuthenticated: %b%n", authentication.isAuthenticated());

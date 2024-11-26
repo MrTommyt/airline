@@ -2,8 +2,8 @@ package com.example.airline.security.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,9 +51,20 @@ public class JwtUtil {
         return false;
     }
 
-    public String getUsernameFromJwtToken(String token){
-        return Jwts.parser().setSigningKey(getSecretKey()).build()
-            .parseClaimsJwt(token).getPayload().getSubject();
+    public String getUsernameFromJwtToken(String token) {
+        return Jwts.parser()
+            .setSigningKey(getSecretKey())
+            .build()
+            .parseClaimsJws(token)
+            .getBody()
+            .getSubject();
+    }
+
+    @PostConstruct
+    public void validateSecretKey() {
+        if (SECRET.getBytes(StandardCharsets.UTF_8).length < 32) {
+            throw new IllegalArgumentException("JWT secret key must be at least 32 characters long for HS512 algorithm.");
+        }
     }
 
     public Key getSecretKey() {

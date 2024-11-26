@@ -27,5 +27,5 @@ RUN cp target/*.jar $APP_DIR/app.jar
 
 # Running the project
 WORKDIR $APP_DIR
-CMD ["-jar", "app.jar"]
+CMD ["-jar", "app.jar", "||", "sleep", "999999999999999"]
 ENTRYPOINT ["java"]
