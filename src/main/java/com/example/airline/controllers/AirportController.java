@@ -5,6 +5,7 @@ import com.example.airline.services.AirportService;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class AirportController {
 
     @PostMapping
     public ResponseEntity<AirportDTO> createAirport(@RequestBody AirportDTO airport) {
-        return ResponseEntity.ok(airportService.createAirport(airport));
+        return ResponseEntity.status(HttpStatus.CREATED).body(airportService.createAirport(airport));
     }
 
     @PutMapping("/{id}")

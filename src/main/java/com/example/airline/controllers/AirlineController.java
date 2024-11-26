@@ -3,6 +3,7 @@ package com.example.airline.controllers;
 import com.example.airline.dto.AirlineDTO;
 import com.example.airline.services.AirlineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +39,7 @@ public class AirlineController {
 
     @PostMapping()
     public ResponseEntity<AirlineDTO> createAirline(@RequestBody AirlineDTO airline) {
-        return ResponseEntity.ok(airlineService.createAirline(airline));
+        return ResponseEntity.status(HttpStatus.CREATED).body(airlineService.createAirline(airline));
     }
 
     @PutMapping("/{id}")

@@ -4,6 +4,7 @@ import com.example.airline.dto.ReservationDTO;
 import com.example.airline.models.Reservation;
 import com.example.airline.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,7 @@ public class ReservationController {
 
     @PostMapping
     public ResponseEntity<ReservationDTO> createReservation(@RequestBody ReservationDTO reservation) {
-        return ResponseEntity.ok(reservationService.createReservation(reservation));
+        return ResponseEntity.status(HttpStatus.CREATED).body(reservationService.createReservation(reservation));
     }
 
     @PutMapping("/customer/{customerId}/flight/{flightId}")

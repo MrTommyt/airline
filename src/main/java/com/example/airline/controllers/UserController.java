@@ -35,27 +35,15 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> authenticateUser(@RequestBody UserInfoDto loginRequest) {
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password())
-            );
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password())
+        );
 
-            if (authentication.isAuthenticated()) {
-                String jwt = jwtUtils.generateToken(authentication);
-                return ResponseEntity.ok(jwt);
-            } else {
-                throw new UsernameNotFoundException("Invalid username or password");
-            }
-        } catch (AuthenticationException e) {
-            e.printStackTrace();
-        } catch (Throwable t) {
-            System.out.println("Unexpected exception");
-            t.printStackTrace();
-        } finally {
-            System.out.println("executing finally code");
+        if (authentication.isAuthenticated()) {
+            String jwt = jwtUtils.generateToken(authentication);
+            return ResponseEntity.ok(jwt);
+        } else {
+            throw new UsernameNotFoundException("Invalid username or password");
         }
-
-        System.out.println("Unauthorized");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
     }
 }

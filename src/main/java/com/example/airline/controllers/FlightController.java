@@ -6,6 +6,7 @@ import com.example.airline.services.FlightService;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +34,7 @@ public class FlightController {
 
     @PostMapping
     public ResponseEntity<FlightDTO> createFlight(@RequestBody FlightDTO flight) {
-        return ResponseEntity.ok(flightService.createFlight(flight));
+        return ResponseEntity.status(HttpStatus.CREATED).body(flightService.createFlight(flight));
     }
 
     @PutMapping("/{id}")

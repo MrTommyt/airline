@@ -4,6 +4,7 @@ import com.example.airline.dto.StopoverDTO;
 import com.example.airline.models.Stopover;
 import com.example.airline.services.StopoverService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class StopoverController {
 
     @PostMapping
     public ResponseEntity<StopoverDTO> createStopover(@RequestBody StopoverDTO stopover) {
-        return ResponseEntity.ok(stopoverService.createStopover(stopover));
+        return ResponseEntity.status(HttpStatus.CREATED).body(stopoverService.createStopover(stopover));
     }
 
     @PutMapping("/flight/{flightId}/airport/{airportId}")
